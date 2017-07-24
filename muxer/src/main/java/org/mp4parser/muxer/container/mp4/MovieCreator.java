@@ -52,6 +52,9 @@ public class MovieCreator {
      */
     public static Movie build(ReadableByteChannel readableByteChannel, RandomAccessSource randomAccessSource, String name) throws IOException {
         IsoFile isoFile = new IsoFile(readableByteChannel);
+        if (isoFile.getMovieBox() == null)
+            return null;
+
         Movie m = new Movie();
         List<TrackBox> trackBoxes = isoFile.getMovieBox().getBoxes(TrackBox.class);
         for (TrackBox trackBox : trackBoxes) {
